@@ -10,18 +10,18 @@ import secrets
 import hashlib
 import jwt
 from datetime import datetime, timedelta
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from models import Usuario
 
 JWT_SECRET = os.getenv("JWT_SECRET")
-if not JWT_SECRET:
-    raise ValueError("JWT_SECRET não configurada. Gerar com: openssl rand -hex 32")
+if not JWT_SECRET or len(JWT_SECRET) < 32:
+    raise ValueError("JWT_SECRET deve ser configurada com pelo menos 32 caracteres")
 
 security = HTTPBearer()
 
 PBKDF2_ALG = "sha256"
-PBKDF2_ITERATIONS = int(os.getenv("AUTH_HASH_ITERATIONS", "120000"))
+PBKDF2_ITERATIONS = int(os.getenv("AUTH_HASH_ITERATIONS", "600000"))
 
 
 def _only_digits(value: str) -> str:
@@ -98,7 +98,9 @@ def create_access_token(user_id: int, email: str) -> str:
     return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
 
 
-async def get_current_user(credentials: HTTPAuthorizationCredentials = security):
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
     """
     Valida e decodifica o JWT token do header Authorization.
     

@@ -108,8 +108,8 @@ async def login(payload: LoginRequest):
                     (new_hash, user[0]),
                 )
                 conn.commit()
-            except Exception as migration_error:
-                print(f"[AUTH] Falha ao migrar hash de senha legada: {migration_error}")
+            except Exception:
+                print("[AUTH] Falha ao migrar hash de senha legada")
         
         # Montar resposta
         usuario_dict = {
