@@ -93,7 +93,7 @@ def health_check():
 
 
 @app.get("/health/detailed", tags=["Health"])
-def health_detailed():
+def health_detailed(_current_user=Depends(get_current_user)):
     from db.neon import get_db_connection, release_connection
     checks: dict = {}
     try:
@@ -101,8 +101,8 @@ def health_detailed():
         conn.cursor().execute("SELECT 1")
         checks["database"] = "ok"
         release_connection(conn)
-    except Exception as e:
-        checks["database"] = f"error: {e}"
+    except Exception:
+        checks["database"] = "error"
 
     checks["groq_configured"] = str(bool(os.getenv("GROQ_API_KEY")))
     checks["betsapi_configured"] = str(bool(os.getenv("BETS_API_TOKEN")))
