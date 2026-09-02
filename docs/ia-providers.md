@@ -21,7 +21,7 @@ GEMINI_MODEL_CHAT=gemini-2.5-flash-lite
 GEMINI_MODEL_ANALYSIS=gemini-2.5-flash-lite
 GROQ_API_KEY=...
 GROQ_MODEL_CHAT=openai/gpt-oss-120b
-GROQ_MODEL=mixtral-8x7b-32768
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 ## Regras de roteamento

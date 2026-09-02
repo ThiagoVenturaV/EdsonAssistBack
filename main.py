@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Groq configuration for chat and analysis
 GROQ_MODEL_CHAT = os.getenv("GROQ_MODEL_CHAT", "openai/gpt-oss-120b")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "mixtral-8x7b-32768")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 
 from fastapi import FastAPI, Depends, HTTPException, Request
