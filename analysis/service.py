@@ -30,7 +30,7 @@ GEMINI_MODEL_ANALYSIS = os.getenv("GEMINI_MODEL_ANALYSIS", "gemini-2.5-flash-lit
 ANALYSIS_GROQ_BACKOFF_SECONDS = int(os.getenv("ANALYSIS_GROQ_BACKOFF_SECONDS", "90"))
 GROQ_MODEL_ANALYSIS = os.getenv(
     "GROQ_MODEL_ANALYSIS",
-    os.getenv("GROQ_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct"),
+    os.getenv("GROQ_MODEL", "openai/gpt-oss-120b"),
 )
 
 try:
